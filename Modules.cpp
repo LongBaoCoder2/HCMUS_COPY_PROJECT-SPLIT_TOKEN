@@ -1,8 +1,8 @@
-#pragma warning(disable:4996)
+// #pragma warning(disable:4996)
 #include <iostream>
 #include <fstream>
 #include "Modules.h"
-#define MAX 100
+#define MAX 200
 
 // Tra ve kich thuoc file
 long long fileSize(const char* filename) {
@@ -62,18 +62,36 @@ bool COPY(const char* fileSrc, const char* fileDest, char mode) {
     size_t sizeReaded = 0;
     size_t percent = 0;
     size_t previousPer = 0;
+    size_t remainByte = 0;
 
-    while (inFile.read(buffer, MAX_COPY)) {
+    // Tranh ham inFile.read(buffer, MAX_COPY) khi MAX_COPY == 0 --> sinh ra vong lap vo han
+    while (inFile.read(buffer, MAX_COPY) && MAX_COPY != 0) {
         sizeReaded = inFile.gcount();
         outFile.write(buffer, sizeReaded);
 
         process += sizeReaded;
         percent = process * 100 / totalSize;
+        remainByte = totalSize - process;
+        MAX_COPY = (MAX_COPY < remainByte) ? MAX_COPY : remainByte;
+
         if (percent - previousPer > 10) {
             displayProcessBar(percent);
             previousPer = percent;
         }
+
     }
+    /*
+        Giai thich:
+            process: bien luu tru tong so luong byte da duoc copy
+            sizeReaded: bien luu tru so byte copy duoc trong 1 vong lap
+            percent = process / totalSize
+            previousPer : percent luu tru truoc do, dung de tao process bar
+            remainByte : so byte con lai chua copy*
+
+            Ta can bien remainByte la de tranh truong hop ham inFile.read(buffer, MAX_COPY) 
+                khi doc thi lieu byte con lai < MAX_COPY --> sinh ra loi, cho nen co the
+                xay ra thieu data o cuoi file.
+    */
 
     // Kiem tra loi ghi doc
     if (inFile.bad() || outFile.bad()) {
