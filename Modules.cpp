@@ -90,7 +90,7 @@ bool COPY(const char* fileSrc, const char* fileDest, char mode) {
 
             Ta can bien remainByte la de tranh truong hop ham inFile.read(buffer, MAX_COPY) 
                 khi doc thi lieu byte con lai < MAX_COPY --> sinh ra loi, cho nen co the
-                xay ra thieu data o cuoi file.
+                xay ra loss data o cuoi file.
     */
 
     // Kiem tra loi ghi doc
