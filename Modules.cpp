@@ -4,6 +4,11 @@
 #include "Modules.h"
 #define MAX 200
 
+std::istream &readFile (std::istream &inFile, char *buffer) {
+    return inFile.read(buffer, MAX);
+}
+
+
 // Tra ve kich thuoc file
 long long fileSize(const char* filename) {
     std::ifstream file(filename);
