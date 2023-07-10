@@ -95,7 +95,7 @@ bool COPY(const char* fileSrc, const char* fileDest, char mode) {
 
     // Kiem tra loi ghi doc
     if (inFile.bad() || outFile.bad()) {
-        std::cout << "Error copy file!\n";
+        std::cout << "Something is wrong when copying!\n";
         return false;
     }
 
