@@ -5,7 +5,7 @@
 #define MAX 200
 
 // Tra ve kich thuoc file
-long long fileSize(const char* filename) {
+long long _fileSize(const char* filename) {
     std::ifstream file(filename);
 
     if (!file.is_open()) {
@@ -20,7 +20,7 @@ long long fileSize(const char* filename) {
 }
 
 // Tao process bar khi copy
-void displayProcessBar(size_t percent) {
+void _displayProcessBar(size_t percent) {
     const size_t sizeBar = 100;
     std::cout << "[ ";
     for (int i = 0; i < sizeBar; i++) {
@@ -51,7 +51,7 @@ bool COPY(const char* fileSrc, const char* fileDest, char mode) {
     }
 
     // Khai bao cac tham so
-    size_t totalSize = fileSize(fileSrc);
+    size_t totalSize = _fileSize(fileSrc);
 
     // Lay ra gia tri lon nhat co the copy
     // Trach truong hop file_size < MAX ---> attribute EOF  = True
@@ -75,7 +75,7 @@ bool COPY(const char* fileSrc, const char* fileDest, char mode) {
         MAX_COPY = (MAX_COPY < remainByte) ? MAX_COPY : remainByte;
 
         if (percent - previousPer > 10) {
-            displayProcessBar(percent);
+            _displayProcessBar(percent);
             previousPer = percent;
         }
 
