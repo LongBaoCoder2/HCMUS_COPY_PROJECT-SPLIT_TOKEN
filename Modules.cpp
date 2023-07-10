@@ -54,7 +54,7 @@ bool COPY(const char* fileSrc, const char* fileDest, char mode) {
     size_t totalSize = fileSize(fileSrc);
 
     // Lay ra gia tri lon nhat co the copy
-    // Trach truong hop file_size < MAX  ---> sinh ra loi
+    // Trach truong hop file_size < MAX ---> attribute EOF  = True
     size_t MAX_COPY = ( MAX > totalSize ) ? totalSize : MAX;
     char *buffer = new char[MAX_COPY];
 
